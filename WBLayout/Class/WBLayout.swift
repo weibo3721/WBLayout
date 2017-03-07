@@ -16,6 +16,11 @@ enum WBLayoutEnum {
     case PinEdge(ALEdge,CGFloat,NSLayoutRelation)
 }
 
+enum WBLayoutModeEnum {
+    case Vertical
+    case Horizontal
+}
+
 class WBLayout {
     private weak var myView:UIView!
     
@@ -24,6 +29,8 @@ class WBLayout {
     private var layoutviews = [UIView]()
     
     private var layoutConstraints = [NSLayoutConstraint]()
+    
+    private var mode = WBLayoutModeEnum.Vertical
     
     var getLayouts:[WBLayoutEnum] {
         get {
@@ -42,8 +49,11 @@ class WBLayout {
         myView.wbLayout = self
     }
     
+    func setMode(newMode:WBLayoutModeEnum) {
+        self.mode = newMode
+    }
+    
     func addLayoutView(newView:UIView) {
-        
         layoutviews.append(newView)
     }
     
@@ -117,29 +127,56 @@ class WBLayout {
                     layoutConstraints.append(view.autoSetDimension(dimension, toSize: size, relation: relation))
                     break
                 case .PinEdge(let edge, let size, let relation):
-                    switch edge {
-                    case .top:
-                        if view == layoutviews.first {
-                            layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: .top, withInset: size,relation: relation))
-                        }
-                        else {
-                            if let beforeview = beforeView(thisView: view) {
-                                layoutConstraints.append(view.autoPinEdge(.top, to: .bottom, of: beforeview, withOffset: size, relation:  relation))
+                    if mode == .Vertical {
+                        switch edge {
+                        case .top:
+                            if view == layoutviews.first {
+                                layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: .top, withInset: size,relation: relation))
                             }
-                        }
-                    case .bottom:
-                        if view == layoutviews.last {
-                            layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: .bottom, withInset: size,relation: relation))
-                        }
-                        else {
-                            if let afterview = afterView(thisView: view) {
-                                layoutConstraints.append(view.autoPinEdge(.top, to: .bottom, of: afterview, withOffset: size, relation:  relation))
+                            else {
+                                if let beforeview = beforeView(thisView: view) {
+                                    layoutConstraints.append(view.autoPinEdge(.top, to: .bottom, of: beforeview, withOffset: size, relation:  relation))
+                                }
                             }
+                        case .bottom:
+                            if view == layoutviews.last {
+                                layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: .bottom, withInset: size,relation: relation))
+                            }
+                            else {
+                                if let afterview = afterView(thisView: view) {
+                                    layoutConstraints.append(view.autoPinEdge(.top, to: .bottom, of: afterview, withOffset: size, relation:  relation))
+                                }
+                            }
+                        default:
+                            layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: edge,withInset: size))
                         }
-                    default:
-                        layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: edge,withInset: size))
+                        break
                     }
-                    break
+                    else {
+                        switch edge {
+                        case .left:
+                            if view == layoutviews.first {
+                                layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: .left, withInset: size,relation: relation))
+                            }
+                            else {
+                                if let beforeview = beforeView(thisView: view) {
+                                    layoutConstraints.append(view.autoPinEdge(.left, to: .right, of: beforeview, withOffset: size, relation:  relation))
+                                }
+                            }
+                        case .right:
+                            if view == layoutviews.last {
+                                layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: .right, withInset: size,relation: relation))
+                            }
+                            else {
+                                if let afterview = afterView(thisView: view) {
+                                    layoutConstraints.append(view.autoPinEdge(.left, to: .right, of: afterview, withOffset: size, relation:  relation))
+                                }
+                            }
+                        default:
+                            layoutConstraints.append(view.autoPinEdge(toSuperviewEdge: edge,withInset: size))
+                        }
+                        break
+                    }
                 case .Axis(let axis):
                     layoutConstraints.append(view.autoAlignAxis(toSuperviewAxis: axis))
                     break

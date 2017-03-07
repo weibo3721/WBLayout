@@ -1,15 +1,15 @@
 //
-//  ViewController.swift
+//  ViewControllerH.swift
 //  WBLayout
 //
-//  Created by weibo on 2017/3/6.
+//  Created by weibo on 2017/3/7.
 //  Copyright © 2017年 weibo. All rights reserved.
 //
 
 import UIKit
+import Foundation
 
-class ViewController: UIViewController {
-    
+class ViewControllerH : UIViewController {
     let view1 = UIButton()
     let viewRed = UILabel()
     let viewYellow = UILabel()
@@ -25,6 +25,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = UIColor.white
+        
         addLayoutForView1()
         addLayoutForView2()
         addLayoutForView3()
@@ -36,49 +38,50 @@ class ViewController: UIViewController {
     }
     
     func addLayoutForView1() {
-        view1.addTarget(self, action: #selector(ViewController.onClickChangeText), for: UIControlEvents.touchUpInside)
+        view1.addTarget(self, action: #selector(ViewControllerV.onClickChangeText), for: UIControlEvents.touchUpInside)
         view1.backgroundColor = UIColor.black
-        view1.wbPinEdge(edge: .top,64).wbPinEdge(edge: .left).wbPinEdge(edge: .right)
-        
+        view1.wbPinEdge(edge: .top,64).wbPinEdge(edge: .left).wbHeight(size: 150)
+        view1.wbSetMode(newMode: .Horizontal)
         
         
         viewRed.text = "viewRed"
         viewRed.numberOfLines = 0
         viewRed.backgroundColor = UIColor.red
-        viewRed.wbPinEdge(edge: .top,15).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15)
+        viewRed.wbPinEdge(edge: .left,15).wbAxis(axis: .horizontal)
         
         
         viewYellow.text = "viewYellow"
         viewYellow.backgroundColor = UIColor.yellow
-        viewYellow.wbPinEdge(edge: .top).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15)
+        viewYellow.wbPinEdge(edge: .left,15).wbAxis(axis: .horizontal)
         
         
         viewBlue.text = "viewBlue\nline2"
         viewBlue.backgroundColor = UIColor.blue
-        viewBlue.wbPinEdge(edge: .top).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15).wbPinEdge(edge: .bottom,15)
+        viewBlue.wbAxis(axis: .horizontal).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15).wbPinEdge(edge: .bottom,15)
         
         
         view1.wbSetLayoutViews(arr: [viewRed,viewYellow,viewBlue])
     }
     
     func addLayoutForView2() {
-        view2.addTarget(self, action: #selector(ViewController.onClickRemove), for: UIControlEvents.touchUpInside)
+        view2.addTarget(self, action: #selector(ViewControllerV.onClickRemove), for: UIControlEvents.touchUpInside)
         view2.backgroundColor = UIColor.purple
-        view2.wbPinEdge(edge: .top,20).wbPinEdge(edge: .left).wbPinEdge(edge: .right)
+        view2.wbPinEdge(edge: .top,20).wbPinEdge(edge: .left).wbHeight(size: 90)
+        view2.wbSetMode(newMode: .Horizontal)
         
         v2s1.backgroundColor = UIColor.red
         v2s1.isUserInteractionEnabled = false
-        v2s1.wbPinEdge(edge: .top,15).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15).wbHeight(size: 30)
+        v2s1.wbAxis(axis: .horizontal).wbPinEdge(edge: .left,15).wbHeight(size: 30).wbWidth(size: 30)
         
         
-        v2s2.text = "点击后这个区域会消失,再次点击显示"
+        //v2s2.text = "点击后这个区域会消失,再次点击显示"
         v2s2.backgroundColor = UIColor.yellow
         v2s2.isUserInteractionEnabled = false
-        v2s2.wbPinEdge(edge: .top).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15).wbHeight(size: 30)
+        v2s2.wbAxis(axis: .horizontal).wbPinEdge(edge: .left,15).wbHeight(size: 30).wbWidth(size: 30)
         
         v2s3.backgroundColor = UIColor.blue
         v2s3.isUserInteractionEnabled = false
-        v2s3.wbPinEdge(edge: .top).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15).wbPinEdge(edge: .bottom,15).wbHeight(size: 30)
+        v2s3.wbAxis(axis: .horizontal).wbPinEdge(edge: .left,15).wbPinEdge(edge: .right,15).wbHeight(size: 30).wbWidth(size: 30)
         
         view2.wbSetLayoutViews(arr: [v2s1,v2s2,v2s3])
     }
@@ -96,7 +99,7 @@ class ViewController: UIViewController {
     func onClickChangeText() {
         isChanged = !isChanged
         if isChanged {
-            viewRed.text = "viewRed\nline2"
+            viewRed.text = "viewRedline1\nline2"
         }
         else {
             viewRed.text = "viewRed"
@@ -118,12 +121,9 @@ class ViewController: UIViewController {
         
         view.wbLayoutSubviews()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
-

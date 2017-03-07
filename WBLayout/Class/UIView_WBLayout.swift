@@ -63,6 +63,10 @@ extension UIView {
         wbLayout.deleteBottomEdge()
     }
     
+    func wbSetMode(newMode: WBLayoutModeEnum) {
+        wbLayout.setMode(newMode: newMode)
+    }
+    
     //MARK: 自动布局方法
     func wbHeight(size:CGFloat,_ relation:NSLayoutRelation = .equal) -> UIView {
         return wbLayout.wbHeight(size:size, relation)
