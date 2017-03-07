@@ -67,6 +67,10 @@ extension UIView {
         wbLayout.setMode(newMode: newMode)
     }
     
+    func wbAddlayoutConstraint(constraint: NSLayoutConstraint) {
+        wbLayout.addlayoutConstraint(constraint: constraint)
+    }
+    
     //MARK: 自动布局方法
     func wbHeight(size:CGFloat,_ relation:NSLayoutRelation = .equal) -> UIView {
         return wbLayout.wbHeight(size:size, relation)

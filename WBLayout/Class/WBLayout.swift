@@ -72,6 +72,10 @@ class WBLayout {
         layouts = []
     }
     
+    func addlayoutConstraint(constraint:NSLayoutConstraint) {
+        layoutConstraints.append(constraint)
+    }
+    
     func deleteBottomEdge() {
         layouts = layouts.filter({ (WBLayoutEnum) -> Bool in
             switch WBLayoutEnum {
@@ -113,7 +117,9 @@ class WBLayout {
     }
     
     func wbLayoutSubviews() {
-        
+        self.layoutConstraints.forEach { (item) in
+            item.isActive = false
+        }
         self.myView.removeConstraints(self.layoutConstraints)
         layoutConstraints = []
         for view in layoutviews {
@@ -124,6 +130,7 @@ class WBLayout {
             for item in view.wbLayouts {
                 switch item {
                 case .Dimension(let dimension, let size, let relation):
+                    
                     layoutConstraints.append(view.autoSetDimension(dimension, toSize: size, relation: relation))
                     break
                 case .PinEdge(let edge, let size, let relation):
