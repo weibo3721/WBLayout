@@ -74,10 +74,11 @@ class ViewControllerH : UIViewController {
         v2s1.wbAxis(axis: .horizontal).wbPinEdge(edge: .left,15).wbHeight(size: 30).wbWidth(size: 30)
         
         
-        //v2s2.text = "点击后这个区域会消失,再次点击显示"
+        v2s2.text = "点击后这个区域会消失,再次点击显示"
+        v2s2.numberOfLines = 0
         v2s2.backgroundColor = UIColor.yellow
         v2s2.isUserInteractionEnabled = false
-        v2s2.wbAxis(axis: .horizontal).wbPinEdge(edge: .left,15).wbHeight(size: 30).wbWidth(size: 30)
+        v2s2.wbAxis(axis: .horizontal).wbPinEdge(edge: .left,15).wbWidth(size: 200)
         
         v2s3.backgroundColor = UIColor.blue
         v2s3.isUserInteractionEnabled = false
@@ -89,7 +90,7 @@ class ViewControllerH : UIViewController {
     func addLayoutForView3() {
         view3.text = "黑色块点击用于演示文字改变的布局更新\n紫色块点击用于演示view的添加和删除时,布局的更新"
         view3.numberOfLines = 0
-        view3.backgroundColor = UIColor.magenta
+        view3.backgroundColor = UIColor.green
         view3.wbPinEdge(edge: .top,30).wbPinEdge(edge: .left).wbPinEdge(edge: .right)
     }
     

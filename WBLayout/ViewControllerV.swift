@@ -88,7 +88,7 @@ class ViewControllerV: UIViewController {
     func addLayoutForView3() {
         view3.text = "黑色块点击用于演示文字改变的布局更新\n紫色块点击用于演示view的添加和删除时,布局的更新"
         view3.numberOfLines = 0
-        view3.backgroundColor = UIColor.magenta
+        view3.backgroundColor = UIColor.green
         view3.wbPinEdge(edge: .top,30).wbPinEdge(edge: .left).wbPinEdge(edge: .right)
     }
     
